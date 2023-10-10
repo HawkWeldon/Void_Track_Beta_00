@@ -2,8 +2,10 @@ import cv2
 import os
 import moviepy.editor as mvp
 os.system('cls')
-def form(image_folder):
-    video_name = 'D:/I.Research/VoidWrk/temp.avi'
+def form(image_folder,current_directory):
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    # os.path.join(current_directory, 'vid/vid.mp4')
+    video_name = os.path.join(current_directory, 'temp.avi')
     images = [img for img in os.listdir(image_folder) if img.endswith(".png")]
     frame = cv2.imread(os.path.join(image_folder, images[0]))
     height, width, layers = frame.shape
@@ -12,6 +14,6 @@ def form(image_folder):
         video.write(cv2.imread(os.path.join(image_folder, image)))
     cv2.destroyAllWindows()
     video.release()
-    clip=mvp.VideoFileClip("D:/I.Research/VoidWrk/temp.avi");
-    clip.write_videofile("D:/I.Research/VoidWrk/Tracked.mp4");
-    os.remove("D:/I.Research/VoidWrk/temp.avi")
+    clip=mvp.VideoFileClip(os.path.join(current_directory, 'temp.avi'));
+    clip.write_videofile(os.path.join(current_directory, 'Tracked.mp4'));
+    os.remove(os.path.join(current_directory, 'temp.avi'))

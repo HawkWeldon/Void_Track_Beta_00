@@ -32,9 +32,24 @@ def rearange(Pn, length, idx):
                     #Pn[j] = '100000 100000', this is a really bad idea don't do this please
                     Thr = dif
                     #print("Thr updated = "+str(Thr))
-            Pn = Pn_copy          
+            Pn = Pn_copy
+    #print("Crn = "+str(Crn))
+    for i in range (len(Pn)):
+        Flag = 0
+        for j in range (len(Crn)):
+            if (Pn[i] != Crn[j]):
+                Flag = Flag + 1
+                #print("Flag = "+str(Flag))
+        if (Flag == len(Pn)+1):
+            left_over = Pn[i]
+            print (left_over)
+    for i in range(len(Crn)):
+        for j in range(len(Crn)):
+            if ((i!=j) & (Crn[i]==Crn[j])):
+                Crn[j] = left_over
+
     file = open("temp.txt", "w")
     L = str(Crn)
     file.writelines(L)
-    print("Crn = "+str(Crn))
+    print("Crn fixed = "+str(Crn))
     return Crn
