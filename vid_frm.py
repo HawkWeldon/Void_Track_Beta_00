@@ -2,9 +2,8 @@ import cv2
 import os
 import moviepy.editor as mvp
 os.system('cls')
-def form(image_folder,current_directory):
-    current_directory = os.path.dirname(os.path.abspath(__file__))
-    # os.path.join(current_directory, 'vid/vid.mp4')
+current_directory = os.path.dirname(os.path.abspath(__file__))
+def form(image_folder):
     video_name = os.path.join(current_directory, 'temp.avi')
     images = [img for img in os.listdir(image_folder) if img.endswith(".png")]
     frame = cv2.imread(os.path.join(image_folder, images[0]))

@@ -2,7 +2,7 @@ from PIL import Image
 from flark import main
 from rearg import rearange 
 ##################################################################################################################################################
-def ant(image_path,output_path,idx,model,):
+def ant(image_path,output_path,idx,model):
     df = main(image_path,model)
     mid_points = df.splitlines()
     lenght = len(mid_points)

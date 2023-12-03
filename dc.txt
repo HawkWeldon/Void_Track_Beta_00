@@ -1,0 +1,58 @@
+-Imports
+	-numpy as np		(it is used for matrix operations)
+	-scipy.linalg 		(It is used for doing linear algebra functions)
+
+- Constant:
+	-chi2inv95		(it represents degree of freedom from 1-9 as a list for 95 quantile)
+
+-Class 	 Kalmanfilter
+	it is the main class which combines the sensory data from various sensors with prediction from mathematical model based on the system to the true real state of the system at present
+
+	-Here two constants are declared
+1. ndim =4		(ndim corresponds to the dimensionality of our system)
+2. dt = 1		(dt corresponds to the time step)
+
+	-Various matrices are declared in the class
+1. self._motion_mat = np.eye(2*ndim, 2*ndim)		(this is a 4x4 identity matrix that will store the state estimate for uncertinity in motion and observation)
+
+This matrix show it incoporates changes and differences in estimates and uncertainity in data and with every iteration in time step it evolves the parameters of the kalman filter model
+
+- for loop
+	
+- def ini
+	this loop update the matrix for the values of x,y,a,h and Vx, Vy, Va, Vh
+	it also initiates tge values of starting values of the starting point
+	it also sets the weights for position and velocity
+
+-def initiate
+	it creates track from unassocaited measurement
+	In this part the standard deviation and covariance values are calculated
+	Then mean position, mean velocity and covariance is returned.
+
+-def predict
+	here standard position and velocity value combined with motion_covariance are returned
+
+-def project
+	The code projects the state’s distribution on a measurement space
+	
+-def multipredict
+	it calculates std_pos and std_vel values for each row in the dataframe.
+	It returns the mean vector and covariance matrix of the predicted state. Unobserved velocities are initialized to 0 mean.
+
+-def update
+	it runs the Kalman filter correction step
+	the inputs mean, covariance, measurement are used to calucate kalman gain
+	then innovation variable to calculated and using its value the new_mean and new_covariance are returned
+
+
+-def gating_distance
+
+	Here the code calculates the distance between a state distribution and the set of measurements.
+	Measurement which is a list containing measurements to be compared to the state distribution.
+	only_position is a boolean flag tells weather to use the position information for distance calculation.
+	The mahalanobis distance is used to incoporate both location and shape of probability distribution.
+	Earlier the cholesky decompsition is used for efficient computation of mahalanobis distance.
+	It returns an array of length N, where the i-th element contains the squared Mahalanobis distance between (mean, covariance) and measurements[i]
+	If the metric used is guassian then the sum of squares is calculated for each dimension of data instead of Mahalannobis distance.
+
+	In summary the code calculates distance between the mean projected of the specified used metrics (that can be gaussian or maha) using properties of dimensionality reduction (refer to projection) for efficiency and utilizing Chlesky decomposition for optimization

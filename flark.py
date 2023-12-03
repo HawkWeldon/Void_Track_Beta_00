@@ -1,7 +1,5 @@
 import cv2
-import torch
 import pandas as pd
-import os 
 ##################################################################################################################################################
 def darknet(results):
     df_list = pd.DataFrame()
